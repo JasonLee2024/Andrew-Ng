@@ -1,0 +1,7 @@
+#!/bin/sh
+# Pre-commit hook: ensure directory tree in README.md and sitemap.md are up-to-date
+#
+# Installed by: cp scripts/pre-commit .git/hooks/pre-commit
+# (or via: git config core.hooksPath .githooks  for repo-level hook sharing)
+
+exec python3 scripts/generate-sitemap.py --check
