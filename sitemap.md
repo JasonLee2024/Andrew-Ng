@@ -5,22 +5,18 @@ tags: [sitemap, navigation, index]
 
 # 🗺️ 站点地图
 
-> 本页由 `scripts/generate-sitemap.py` 自动生成 · 最后更新 2026-05-05 18:48
+> 本页由 `scripts/generate-sitemap.py` 自动生成 · 最后更新 2026-05-05 19:01
 
 ## 导航一览
 
 | 目录 | 内容 |
 |------|------|
-| `profile/` | 个人简介、履历时间线、全平台索引 |
-| `projects/` | 核心开源项目详解（nanoGPT, nanochat, LLM.c 等） |
-| `talks/` | 演讲、访谈、播客内容整理 |
 | `blog/` | 博客文章摘要与解读 |
-| `social/` | X/Twitter 等社交平台观点精选 |
-| `community/` | 社区衍生项目、讨论与二次创作 |
-| `scripts/` | 自动化更新脚本 |
-| `courses/` | 课程体系 |
-| `companies/` | 企业版图 |
-| `papers/` | 学术论文 |
+| `companies/` | companies |
+| `courses/` | courses |
+| `papers/` | papers |
+| `profile/` | 个人简介、履历时间线、全平台索引 |
+| `talks/` | 演讲、访谈、播客内容整理 |
 | `[[timeline]]` | 综合时间线 — 所有事件的集中索引 |
 
 ## 目录结构
@@ -53,10 +49,10 @@ Andrew_Ng/
 | 指标 | 数值 |
 |------|------|
 | Markdown 文件数 | **10** |
-| 总行数 | **434** |
+| 总行数 | **410** |
 | 目录数 | **7** |
-| 知识库大小 | **15 KB** |
-| 最后更新 | 2026-05-05 18:48 |
+| 知识库大小 | **14 KB** |
+| 最后更新 | 2026-05-05 19:01 |
 
 ## 维护说明
 

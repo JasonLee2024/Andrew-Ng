@@ -59,6 +59,7 @@ DIR_DESCRIPTIONS = {
 }
 
 # Navigation table (for sitemap.md)
+# Only directories that actually exist are shown; list all possible ones here
 NAV_TABLE = {
     "profile/": "个人简介、履历时间线、全平台索引",
     "projects/": "核心开源项目详解（nanoGPT, nanochat, LLM.c 等）",
@@ -67,9 +68,6 @@ NAV_TABLE = {
     "social/": "X/Twitter 等社交平台观点精选",
     "community/": "社区衍生项目、讨论与二次创作",
     "scripts/": "自动化更新脚本",
-    "courses/": "课程体系",
-    "companies/": "企业版图",
-    "papers/": "学术论文",
     "[[timeline]]": "综合时间线 — 所有事件的集中索引",
 }
 
@@ -176,11 +174,24 @@ def build_tree(kb_root: Path) -> str:
 
 def build_sitemap_md(kb_root: Path, tree: str, stats: dict) -> str:
     """Generate sitemap.md content."""
+    # Build nav table from actual directory structure + NAV_TABLE lookup
     nav_rows = []
-    for dir_name, desc in NAV_TABLE.items():
-        if any((kb_root / d.replace("[[", "").replace("]]", "")).exists() or
-               (kb_root / "profile").parent.exists() for d in [dir_name]):
-            nav_rows.append(f"| `{dir_name}` | {desc} |")
+    dirs_found = set()
+    for md_file in sorted(kb_root.rglob("*.md")):
+        if ".git" in md_file.parts:
+            continue
+        rel = str(md_file.relative_to(kb_root))
+        parts = rel.split("/")
+        if len(parts) > 1:
+            dir_name = parts[0] + "/"
+            if dir_name not in dirs_found:
+                dirs_found.add(dir_name)
+                desc = NAV_TABLE.get(dir_name, dir_name.rstrip("/"))
+                nav_rows.append(f"| `{dir_name}` | {desc} |")
+    # Also check non-md known files (timeline)
+    for key, desc in NAV_TABLE.items():
+        if key.startswith("[["):
+            nav_rows.append(f"| `{key}` | {desc} |")
 
     sitemap = f"""---
 date: {datetime.now().strftime('%Y-%m-%d')}
@@ -234,23 +245,33 @@ def extract_current_tree(readme_path: Path) -> str | None:
 
 
 def replace_tree_in_readme(readme_path: Path, new_tree: str, stats: dict) -> bool:
-    """Replace the tree section in README.md. Returns True if changed."""
+    """Replace the tree section in README.md with a sitemap link. Returns True if changed."""
     content = readme_path.read_text(encoding="utf-8")
 
-    old_section = re.search(r"## 目录结构\n\n```\n.*?\n```\n\n共 \*\*\d+ 个文件，\d+ 行\*\*。", content, re.DOTALL)
-    new_section = f"## 目录结构\n\n```\n{new_tree}\n```\n\n共 **{stats['files']} 个文件，{stats['lines']} 行**。全部是 Obsidian 兼容的 Markdown（`[[wikilink]]` 双向链接）。"
+    # Remove the entire "## 目录结构" section (tree block + description line)
+    old_section = re.search(
+        r"## 目录结构\n\n```\n.*?\n```\n\n共 \*\*\d+ 个文件，\d+ 行\*\*。",
+        content,
+        re.DOTALL,
+    )
+    new_section = (
+        f"## 目录结构\n\n"
+        f"完整文件列表请见 [[sitemap|🗺️ 站点地图]]。\n"
+        f"共 **{stats['files']} 个文件，{stats['lines']} 行**。"
+    )
 
     if old_section:
         new_content = content.replace(old_section.group(0), new_section)
     else:
-        # Auto-append before the last horizontal rule or at end of file
-        appendix = f"\n\n---\n\n## 目录结构\n\n```\n{new_tree}\n```\n\n共 **{stats['files']} 个文件，{stats['lines']} 行**。全部是 Obsidian 兼容的 Markdown（`[[wikilink]]` 双向链接）。"
-        hr_match = list(re.finditer(r"\n---\n", content))
-        if hr_match:
-            insert_pos = hr_match[-1].start() + 1
-            new_content = content[:insert_pos] + appendix + content[insert_pos:]
+        # Try to find a simpler tree section
+        old_simple = re.search(r"## 目录结构\n\n```\n.*?\n```", content, re.DOTALL)
+        if old_simple:
+            new_content = content.replace(
+                old_simple.group(0),
+                f"## 目录结构\n\n完整文件列表请见 [[sitemap|🗺️ 站点地图]]。",
+            )
         else:
-            new_content = content + appendix
+            return False
 
     if new_content != content:
         readme_path.write_text(new_content, encoding="utf-8")
@@ -303,13 +324,21 @@ def main():
     tree = build_tree(kb_root)
 
     if args.check:
-        current = extract_current_tree(readme_path)
-        if current == tree:
-            print("✅ 目录结构已同步")
-            sys.exit(0)
-        else:
-            print("❌ 目录结构不同步！请运行 `python3 scripts/generate-sitemap.py`")
-            sys.exit(1)  # <-- THIS IS THE FIX
+        # README no longer has tree block; check sitemap.md tree section instead
+        sitemap_path = kb_root / "sitemap.md"
+        expected_sitemap = build_sitemap_md(kb_root, tree, stats)
+        try:
+            current_sitemap = sitemap_path.read_text(encoding="utf-8")
+            # Compare ignoring the timestamp line (which changes every run)
+            def tree_lines(text):
+                return [l for l in text.splitlines() if "最后更新" not in l]
+            if tree_lines(current_sitemap) == tree_lines(expected_sitemap):
+                print("✅ 目录结构已同步")
+                sys.exit(0)
+        except FileNotFoundError:
+            pass
+        print("❌ 目录结构不同步！请运行 `python3 scripts/generate-sitemap.py`")
+        sys.exit(1)
 
     # Update README
     changed_readme = replace_tree_in_readme(readme_path, tree, stats)

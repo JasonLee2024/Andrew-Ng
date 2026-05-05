@@ -28,30 +28,8 @@
 
 ## 目录结构
 
-```
-Andrew_Ng/
-├── README.md  ← 首页导航 + 最近动态一览
-├── _config.yml  ← GitHub Pages 配置
-├── sitemap.md  ← 🗺️ 站点地图（自动生成）
-├── timeline.md  ← Andrew Ng 时间线总索引
-├── profile/  ← 个人简介、履历、平台索引
-│   ├── bio.md  ← 个人履历
-│   └── platforms-index.md  ← 全平台索引
-├── talks/  ← 演讲、访谈、播客
-│   └── _index.md  ← 演讲 & 对谈
-├── blog/  ← 博客文章摘要
-│   └── _index.md  ← 博客 & 专栏
-├── scripts/  ← 自动化维护脚本
-│   └── generate-sitemap.py  ← 站点地图生成器
-├── companies/  ← 企业版图
-│   └── _index.md  ← 企业版图
-├── courses/  ← 课程体系
-│   └── _index.md  ← 课程体系
-└── papers/  ← 学术论文
-    └── _index.md  ← 学术论文
-```
-
-共 **10 个文件，434 行**。全部是 Obsidian 兼容的 Markdown（`[[wikilink]]` 双向链接）。全部是 Obsidian 兼容的 Markdown（`[[wikilink]]` 双向链接）。
+完整文件列表请见 [[sitemap|🗺️ 站点地图]]。
+共 **10 个文件，436 行**。
 
 ---
 
