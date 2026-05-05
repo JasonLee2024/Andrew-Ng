@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrew Ng 知识库</title>
+<style>
+  :root { --bg:#0d1117; --text:#c9d1d9; --accent:#58a6ff; --card:#161b22; --border:#30363d; --hover:#1c2128; --sec:#8b949e; }
+  .light { --bg:#ffffff; --text:#1f2328; --accent:#0969da; --card:#f6f8fa; --border:#d0d7de; --hover:#eaeef2; --sec:#656d76; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .container { max-width:900px; margin:0 auto; padding:40px 20px; }
+  .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  h1 { font-size:1.8rem; font-weight:600; }
+  .toggle { padding:6px 14px; border:1px solid var(--border); border-radius:6px; background:var(--card); color:var(--text); cursor:pointer; font-size:.85rem; }
+  .toggle:hover { background:var(--hover); }
+  .subtitle { color:var(--sec); margin-bottom:30px; font-size:1rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; margin-bottom:30px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px; transition:all .15s; }
+  .card:hover { background:var(--hover); border-color:var(--accent); }
+  .card h3 { font-size:1rem; margin-bottom:8px; }
+  .card h3 a { color:var(--accent); text-decoration:none; }
+  .card p { font-size:.85rem; color:var(--sec); line-height:1.5; }
+  .quick-links { margin-top:30px; padding-top:20px; border-top:1px solid var(--border); }
+  .quick-links h3 { font-size:.9rem; color:var(--sec); margin-bottom:10px; }
+  .quick-links a { color:var(--accent); text-decoration:none; font-size:.85rem; margin-right:16px; }
+  .footer { margin-top:40px; padding-top:20px; border-top:1px solid var(--border); font-size:.8rem; color:var(--sec); text-align:center; }
+  .footer a { color:var(--accent); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="container">
+<header class="header">
+  <h1>📖 Andrew Ng 知识库</h1>
+  <button class="toggle" id="themeToggle">🌙 深色</button>
+</header>
+<p class="subtitle">结构化跟踪 AI 教育家、企业家、研究领袖 <strong>Andrew Ng（吴恩达）</strong> 的课程、企业、论文、演讲与动态。</p>
+
+<div class="grid">
+  <div class="card"><h3><a href="https://github.com/JasonLee2024/Andrew-Ng/blob/main/profile/bio.md">👤 个人履历</a></h3><p>教育背景、职业经历、核心贡献</p></div>
+  <div class="card"><h3><a href="https://github.com/JasonLee2024/Andrew-Ng/blob/main/profile/platforms-index.md">🔗 全平台索引</a></h3><p>博客、YouTube、社交、企业、学术全渠道</p></div>
+  <div class="card"><h3><a href="https://github.com/JasonLee2024/Andrew-Ng/blob/main/courses/_index.md">🎓 课程体系</a></h3><p>DeepLearning.AI 10+ 门课程 + Stanford CS229/CS230</p></div>
+  <div class="card"><h3><a href="https://github.com/JasonLee2024/Andrew-Ng/blob/main/companies/_index.md">🏢 企业版图</a></h3><p>Coursera 联合创始人、DeepLearning.AI、Landing AI、AI Fund</p></div>
+  <div class="card"><h3><a href="https://github.com/JasonLee2024/Andrew-Ng/blob/main/papers/_index.md">📄 学术论文</a></h3><p>Google Cat 神经元到深度学习综述，200K+ 引用</p></div>
+  <div class="card"><h3><a href="https://github.com/JasonLee2024/Andrew-Ng/blob/main/talks/_index.md">🎤 演讲对谈</a></h3><p>TED、Stanford HAI、NeurIPS 等主题演讲</p></div>
+  <div class="card"><h3><a href="https://github.com/JasonLee2024/Andrew-Ng/blob/main/blog/_index.md">✍️ 博客专栏</a></h3><p>The Batch 周报、个人博客、LinkedIn 专栏</p></div>
+  <div class="card"><h3><a href="https://github.com/JasonLee2024/Andrew-Ng/blob/main/timeline.md">⏳ 时间线</a></h3><p>1998—今：从 CMU 本科生到 AI 教育领袖</p></div>
+</div>
+
+<div class="quick-links">
+  <h3>🚀 快速入口</h3>
+  <a href="https://www.deeplearning.ai">DeepLearning.AI</a>
+  <a href="https://www.coursera.org">Coursera</a>
+  <a href="https://landing.ai">Landing AI</a>
+  <a href="https://www.aifund.ai">AI Fund</a>
+  <a href="https://www.andrewng.org">个人网站</a>
+  <a href="https://x.com/AndrewYNg">X/Twitter</a>
+</div>
+
+<div class="footer">
+  <p><a href="https://github.com/JasonLee2024/Andrew-Ng">📂 GitHub 仓库</a> · 知识库由 Hermes Agent 构建维护</p>
+</div>
+</div>
+
+<script>
+const toggle=document.getElementById('themeToggle');
+const saved=localStorage.getItem('theme');
+if(saved==='light'){document.body.classList.add('light');toggle.textContent='☀️ 浅色';}
+toggle.addEventListener('click',()=>{
+  document.body.classList.toggle('light');
+  const isLight=document.body.classList.contains('light');
+  toggle.textContent=isLight?'☀️ 浅色':'🌙 深色';
+  localStorage.setItem('theme',isLight?'light':'dark');
+});
+</script>
+</body>
+</html>
