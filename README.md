@@ -24,3 +24,7 @@
 - [X/Twitter](https://x.com/AndrewYNg)
 - [LinkedIn](https://www.linkedin.com/in/andrewyng)
 - [Google Scholar](https://scholar.google.com/citations?user=wxL1Wf4AAAAJ)
+
+---
+
+> **在线阅读：** [https://jasonlee2024.github.io/Andrew-Ng/](https://jasonlee2024.github.io/Andrew-Ng/) — 知识库 GitHub Pages 站点（支持浅色/深色主题切换）  
