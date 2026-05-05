@@ -23,7 +23,8 @@
 - [个人网站](https://www.andrewng.org)
 - [X/Twitter](https://x.com/AndrewYNg)
 - [LinkedIn](https://www.linkedin.com/in/andrewyng)
-- [Google Scholar](https://scholar.google.com/citations?user=wxL1Wf4AAAAJ)
+- [Google Scholar](<https://scholar.google.com/citations?user=wxL1Wf4AAAAJ>)
+
 ---
 
 ## 目录结构
