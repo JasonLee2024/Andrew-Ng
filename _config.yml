@@ -1,3 +1,11 @@
-title: Andrew Ng 知识库
-description: 结构化跟踪 Andrew Ng（吴恩达）的课程、企业、论文与演讲
-markdown: GFM
+# _config.yml — GitHub Pages 配置
+title: "Andrew Ng 知识库"
+description: "Andrew Ng（吴恩达）课程、企业、论文、演讲——结构化跟踪"
+theme: jekyll-theme-minimal
+markdown: kramdown
+show_downloads: true
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
